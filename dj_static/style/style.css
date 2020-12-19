@@ -1,0 +1,26 @@
+
+    body{
+        background: #040101
+    }
+    p{
+        color:white;
+    }
+    input{
+        margin-left: 10%;
+    }
+    .myborder {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 40px;
+        width: 300px;
+        height: 300px;
+        padding: 40px;
+        color: slateblue;
+        background: red;
+        /*margin-left: 35%;*/
+        /*margin-top: 10%;*/
+    }
+    .sub{
+        color:gray;
+    }

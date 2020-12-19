@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <a class="nav-link active" href="register">Register</a>
+            <a class="nav-link active" href="login">Login</a>
+            <a class="nav-link active" href="https://www.facebook.com/abrham.mesfin.35">facebook</a>
+        </div>
+    </div>
+</nav>
+    <div class="w-25 p-3 border rounded-3 position-absolute top-50 start-50 translate-middle" style="background-color: green">
+        <form action="login" method="post">
+            {% csrf_token %}
+            {% for foo in messages %}
+        	<h5 style="font-style: italic; color:yellow">{{ foo }}</h5>
+            {% endfor %}
+            <p><input type="text" name="username" placeholder="username"></p>
+            <p><input type="password" name="password" placeholder="password" ></p>
+            <p><input type="submit" class="btn btn-primary" value="login"></p>
+        </form>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
