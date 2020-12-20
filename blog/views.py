@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import WildLife
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-import datetime
+import datetime, requests
 
 def home(request):
     global wildlife
@@ -21,11 +21,6 @@ def post(request):
         wild.save()
         return redirect('home')
     return render(request, 'blog/post.html')
-
-
-def contact(request):
-    return render(request, 'blog/contact.html')
-
 
 def register(request):
     if request.method == 'POST':
@@ -69,11 +64,35 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
-
-def about(request):
-    return render(request, 'blog/about.html')
-
-
 def detail(request, wildlife_id):
     wild = get_object_or_404(WildLife, pk=wildlife_id)
     return render(request, 'blog/detail.html', {'wild': wild})
+
+def currency(request):
+    if request.method == 'POST':
+        symbols = request.POST['to']
+        amount1 = request.POST['amount']
+        try:
+            amount = int(amount1)
+        except:
+            messages.info(request, 'amount must be an integer.')
+            return redirect('currency')
+
+        if symbols != '':
+            res = requests.get('https://api.currencyfreaks.com/latest?apikey=3795b985fd7e40f1a98b51971e0bc0c6&',
+                               params={'symbols':symbols})
+            if res.status_code != 200:
+                messages.info(request, 'something goes wrong')
+                return redirect('currency')
+            data = res.json()
+            rate = float(data['rates'][symbols])
+            # revers = 1/rate
+            curr = f'{amount} USD is equal to {rate*amount} {symbols}'
+            # rev = f'{amount} {symbols} is equal to {revers*amount} USD'
+            # currencies = [curr,rev]
+            return render(request, 'blog/currency.html', {'currency': curr, 'symbols': symbols})
+        else:
+            messages.info(request, 'invalid symbol.')
+            return redirect('currency')
+    return render(request, 'blog/currency.html')
+
