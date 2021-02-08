@@ -26,17 +26,15 @@
     </nav>
 	<div class="w-25 p-3 border rounded-3 position-absolute top-50 start-50 translate-middle" style="background-color: green">
         <div class="ss">
-        <form action="post" method="post">
+        <form action="post" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            <p name="image">{{form.as_p}}</p>
             <p><input type="text" name="names" placeholder="name"></p>
             <p><input type="text" name="article" placeholder="write your article"></p>
             <p><input type="text" name="author" placeholder="author"></p>
             <p><input type="date" name="date"></p>
-
-        </form>
-        <form action="post" method="post">
-            <p><input type="file" name="image" accept="image/*" alt="i cant post an image"></p>
-            <input type="submit" value="upload">
+            
+             <input type="submit" value="upload">
         </form>
         </div>
     </div>
